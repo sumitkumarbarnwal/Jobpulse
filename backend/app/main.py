@@ -58,14 +58,14 @@ def create_app() -> FastAPI:
     )
 
     # ── CORS ──────────────────────────────────────────────────────────────────
-    # In production, set CORS_ORIGINS to your actual frontend domain.
-    # Wildcard "*" is acceptable only for fully public read-only APIs.
+    # Allow configured origins, wildcard, and any Vercel preview/production domains
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins_list,
+        allow_origin_regex=r"https://.*\.vercel\.app",
         allow_credentials=False,
-        allow_methods=["GET", "POST"],
-        allow_headers=["Content-Type", "Accept"],
+        allow_methods=["*"],
+        allow_headers=["*"],
     )
 
     # ── Routers ───────────────────────────────────────────────────────────────

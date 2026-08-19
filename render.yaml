@@ -28,6 +28,6 @@ services:
         value: "5"
       - key: CIRCUIT_BREAKER_COOLDOWN_SECONDS
         value: "60"
-      # Set CORS_ORIGINS to your Vercel frontend URL after deployment
+      # Set CORS_ORIGINS to allowed origins or *
       - key: CORS_ORIGINS
-        value: https://jobpulse.vercel.app,http://localhost:5173
+        value: https://jobpulse-fawn.vercel.app,https://jobpulse.vercel.app,http://localhost:5173,*

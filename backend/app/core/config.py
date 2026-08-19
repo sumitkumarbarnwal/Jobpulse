@@ -31,11 +31,11 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./jobpulse.db"
 
     # ── CORS ─────────────────────────────────────────────────────────────────
-    cors_origins: str = "http://localhost:5173,http://localhost:3000"
+    cors_origins: str = "http://localhost:5173,http://localhost:3000,https://jobpulse-fawn.vercel.app,*"
 
     @property
     def cors_origins_list(self) -> list[str]:
-        return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+        return [o.strip().rstrip("/") for o in self.cors_origins.split(",") if o.strip()]
 
     # ── Ingestion ─────────────────────────────────────────────────────────────
     ingestion_interval_seconds: int = 0  # 0 = manual only

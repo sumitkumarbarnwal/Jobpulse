@@ -8,7 +8,8 @@ import type {
   JobListResponse,
 } from '../types';
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? '';
+const RAW_BASE_URL = (import.meta.env.VITE_API_URL ?? '').trim();
+const BASE_URL = RAW_BASE_URL.replace(/\/+$/, '');
 
 export interface ApiError {
   status: number;
@@ -26,7 +27,8 @@ export function isApiError(err: unknown): err is ApiError {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const url = `${BASE_URL}${path}`;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const url = `${BASE_URL}${normalizedPath}`;
   let response: Response;
 
   try {
