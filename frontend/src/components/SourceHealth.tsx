@@ -42,7 +42,7 @@ function buildSparklinePath(runs: IngestionRun[], w: number, h: number): { area:
   // Smooth with a running average (window = 3)
   const smoothed = points.map((_, i) => {
     const slice = points.slice(Math.max(0, i - 2), i + 1);
-    return slice.reduce((a, b) => a + b, 0) / slice.length;
+    return slice.reduce((a, b) => (a as number) + b, 0) / slice.length;
   });
 
   const minV = 0;
