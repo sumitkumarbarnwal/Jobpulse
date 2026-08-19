@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: jobpulse-backend
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: JOB_SOURCE
+        value: arbeitnow
+      - key: DATABASE_URL
+        value: sqlite:///./jobpulse.db
+      - key: APP_ENV
+        value: production
+      - key: HIDE_ERROR_DETAILS
+        value: "true"
+      - key: HTTP_TIMEOUT_SECONDS
+        value: "30"
+      - key: HTTP_MAX_RETRIES
+        value: "3"
+      - key: HTTP_INITIAL_BACKOFF_SECONDS
+        value: "1.0"
+      - key: HTTP_MAX_BACKOFF_SECONDS
+        value: "60.0"
+      - key: CIRCUIT_BREAKER_FAILURE_THRESHOLD
+        value: "5"
+      - key: CIRCUIT_BREAKER_COOLDOWN_SECONDS
+        value: "60"
+      # Set CORS_ORIGINS to your Vercel frontend URL after deployment
+      - key: CORS_ORIGINS
+        value: https://jobpulse.vercel.app,http://localhost:5173
